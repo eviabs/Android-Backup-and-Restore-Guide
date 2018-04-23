@@ -1,4 +1,4 @@
-execut# Android Backup and Restore guide for Non-Rooted Devices
+# Android Backup and Restore guide for Non-Rooted Devices
 Android backup and restore process is pretty annoying, and this guide will explain to you how it should be done.
 As the title states, no root is needed.
 We will use adb or Helium application.
