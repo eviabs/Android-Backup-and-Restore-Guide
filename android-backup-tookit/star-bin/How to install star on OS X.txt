@@ -1,0 +1,7 @@
+How to install star on OS X
+
+1. install Homebrew for OSX:
+	http://brew.sh/
+2. install star:
+3. run the command from shell:
+	brew install star
