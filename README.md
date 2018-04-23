@@ -29,3 +29,7 @@ All of the needed programs and executables are located in this repository.
 
 ## Got issues?
 Feel free to open new issues or just mail me if you've got any.ables
+
+## Author
+
+**Evyatar Ben-Shitrit** - [eviabs](https://github.com/eviabs)
