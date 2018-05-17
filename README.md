@@ -20,7 +20,7 @@ How to extract data from android backups and how to modify it.
 How to restore the backed up applications.
 
 #### An example of how to create a backup, modify it and restore it
-We will fix Grindr's "unable to refresh" error and demonstrate how to use all of tools shown above.
+We will fix Grindr's "unable to refresh" error and demonstrate how to use all of the tools shown above.
 
 ## Where is the guide?
 The guide itself is the pdf file.
