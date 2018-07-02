@@ -1,4 +1,7 @@
-# Android Backup and Restore guide for Non-Rooted Devices
+# [Android Backup and Restore guide for Non-Rooted Devices](https://eviabs.com/Android-Backup-and-Restore-Guide/)
+
+![Downtify Image](https://eviabs.com/Android-Backup-and-Restore-Guide/img/Android-Backup.png)
+
 Android backup and restore process is pretty annoying, and this guide will explain to you how it should be done.
 As the title states, no root is needed.
 We will use adb or Helium application.
@@ -20,12 +23,12 @@ How to extract data from android backups and how to modify it.
 How to restore the backed up applications.
 
 #### An example of how to create a backup, modify it and restore it
-We will fix Grindr's "unable to refresh" error and demonstrate how to use all of the tools shown above.
+Advanced usage of Android backup and restore process.
 
 ## Where is the guide?
-The guide itself is the pdf file.
+[Right here](https://eviabs.com/Android-Backup-and-Restore-Guide/)
 
-All of the needed programs and executables are located in this repository.
+
 
 ## Got issues?
 Feel free to open new issues or just mail me if you've got any.
