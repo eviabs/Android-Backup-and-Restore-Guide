@@ -8,16 +8,6 @@
 As the title states, no root is needed.
 We will use adb or Helium application.**
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-
 ## What's on this guide?
 
 #### A quick guide for setting up and using adb
