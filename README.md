@@ -28,7 +28,7 @@ Advanced usage of Android backup and restore process.
 ## Where is the guide?
 [Right here](https://eviabs.com/Android-Backup-and-Restore-Guide/)
 
-*Note that the pdf/docx files are outdated!.*
+*Note that the pdf/docx files are outdated!*
 
 
 
