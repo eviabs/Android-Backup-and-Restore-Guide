@@ -4,9 +4,9 @@
 <img alt= "Android Backup and Restore guide for Non-Rooted Devices" src="https://eviabs.com/Android-Backup-and-Restore-Guide/img/Android-Backup.png" width="400" height="300"/>
 </p>
 
-**Android backup and restore process is pretty annoying, and this guide will explain to you how it should be done.
-As the title states, no root is needed.
-We will use adb or Helium application.**
+**Android backup and restore process might be a little bothersome and somewhat complex.
+I'll try to simplify this process for you, and guide you through it.
+We will focus of the backup and restore process of single Android apps.**
 
 ## What's on this guide?
 
@@ -27,6 +27,8 @@ Advanced usage of Android backup and restore process.
 
 ## Where is the guide?
 [Right here](https://eviabs.com/Android-Backup-and-Restore-Guide/)
+
+*Note that the pdf/docx files are outdated!.*
 
 
 
