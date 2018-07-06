@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!--&lt;!&ndash; Global site tag (gtag.js) - Google Analytics &ndash;&gt;-->
+    <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121798497-1"></script>-->
+    <!--<script>-->
+    <!--window.dataLayer = window.dataLayer || [];-->
+    <!--function gtag(){dataLayer.push(arguments);}-->
+    <!--gtag('js', new Date());-->
+
+    <!--gtag('config', 'UA-121798497-1');-->
+    <!--</script>-->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Collapsible sidebar using Bootstrap 4</title>
+
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+    <!-- Sidebar  -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Android Backup and Restore</h3>
+        </div>
+
+        <ul class="list-unstyled">
+
+
+            <!-- Intro -->
+            <li class="components active">
+                <a href="#intro">Intro</a>
+            </li>
+
+            <!-- Getting Started -->
+            <li class="components">
+                <a href="#gettingStartedSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Getting Started</a>
+                <ul class="collapse list-unstyled" id="gettingStartedSubmenu">
+                    <li>
+                        <a href="#start_adb">Install adb</a>
+                    </li>
+                    <li>
+                        <a href="#start_helium">Install Helium</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Backup -->
+            <li class="components">
+                <a href="#backupSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Backup</a>
+                <ul class="collapse list-unstyled" id="backupSubmenu">
+                    <li>
+                        <a href="#">Backup using adb</a>
+                    </li>
+                    <li>
+                        <a href="#">Backup using Helium</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Restore -->
+            <li class="components">
+                <a href="#restoreSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Restore</a>
+                <ul class="collapse list-unstyled" id="restoreSubmenu">
+                    <li>
+                        <a href="#">Restore using adb</a>
+                    </li>
+                    <li>
+                        <a href="#">Restore using Helium</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Advanced -->
+            <li class="components">
+                <a href="#advancedSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Advanced</a>
+                <ul class="collapse list-unstyled" id="advancedSubmenu">
+                    <li>
+                        <a href="#">Extracting tar and ab files</a>
+                    </li>
+                    <li>
+                        <a href="#">Bla</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Advanced -->
+            <li class="components">
+                <a href="#">Summery</a>
+            </li>
+        </ul>
+
+
+    </nav>
+
+    <!-- Page Content Container  -->
+    <div id="content-container">
+
+        <!-- Top Navbar  -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+
+                <!-- Menu Button -->
+                <button type="button" id="sidebarCollapse" class="navbar-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <!-- Menu GitHub link -->
+                <a href="https://github.com/eviabs/Android-Backup-and-Restore-Guide" target="_blank" class="github menu-icon"><i class="fa fa-github"></i></a>
+            </div>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+            <h1>Android Backup and Restore guide for Non-Rooted Devices</h1>
+            <img class="logo" src="img/Android-Backup.png" alt="Android Backup and Restore guide for Non-Rooted Devices"/>
+
+
+            <h2 id="intro">Intro</h2>
+            <p>
+                Android backup and restore process might be a little bothersome and somewhat complex. I'll try to simplify this process for you, and guide you through it. We will focus of the backup and restore process of single Android apps.
+            </p>
+            <p>
+                As the title states, no root is needed. For that, we will use adb or Helium app.
+            </p>
+            <p>
+                I'm using Windows platform, but this guide should work or any other platform.
+            </p>
+
+            <div class="line"></div>
+
+            <h2 id="get_start">Getting Start</h2>
+            <p>We will start by installing adb and Helium app - at least one of them is needed for backing up and restoring apps. </p>
+            <div class="sub-title">
+                <h3 id="start_adb">Installing and using adb</h3>
+                <p><a href="https://developer.android.com/studio/command-line/adb.html">Android Debug Bridge (adb)</a> is a versatile command-line tool that lets you communicate with a device. The adb command facilitates a variety of device actions, such as installing and debugging apps, and it provides access to a Unix shell that you can use to run a variety of commands on a device</p>
+                <p>Getting adb working on your machine:</p>
+                <ul>
+                    <li>Get adb (From <a href="https://developer.android.com/studio/command-line/adb.html">android developers site</a> or <a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/eviabs/Android-Backup-and-Restore-Guide/tree/master/adb%20fastboot%20files">direct link</a>)</li>
+                    <li>Enable debugging mode on your phone (<a href="http://www.kingoapp.com/root-tutorials/how-to-enable-usb-debugging-mode-on-android.htm">How?</a>)</li>
+                    <li>Install Google USB Driver if you haven't got them installed (<a href="https://developer.android.com/studio/run/win-usb.html">How?</a>)</li>
+                    <li>Open cmd and navigate to the adb file location.</li>
+                    <li>Run <span class="code">adb devices</span> and make sure that your device is listed:
+                        <ul>
+                            <li>
+                                A successful command would look like this:
+                                <a href="img/guide/adb-attached.png" class="link-preview" data-lightbox="cmd" data-title="adb attached device" title="adb attached device"><img class="cmd" src="img/guide/adb-attached.png" alt="adb attached device"/></i></a>
+                                or like this:
+                                <a href="img/guide/adb-daemon-attached.png" class="link-preview" data-lightbox="cmd" data-title="adb attached device" title="adb attached device"><img class="cmd" src="img/guide/adb-daemon-attached.png" alt="adb attached device"/></i></a>
+
+                            </li>
+                            <li>
+                                If no devices are listed, and you are getting this message:
+                                <a href="img/guide/adb-not-attached.png" class="link-preview" data-lightbox="cmd" data-title="adb no attached device" title="adb no attached device"><img class="cmd" src="img/guide/adb-not-attached.png" alt="adb no attached device"/></i></a>
+                                Or this:
+                                <a href="img/guide/adb-daemon-not-attached.png" class="link-preview" data-lightbox="cmd" data-title="adb no attached device" title="adb no attached device"><img class="cmd" src="img/guide/adb-daemon-not-attached.png" alt="adb no attached device"/></i></a>
+                                Run <span class="code">adb kill-server</span> and then run again <span class="code">adb devices</span>.
+                            </li>
+                            <li>
+                                If still no devices are listed, try one of the following solutions:
+                                <a href="https://stackoverflow.com/questions/21170392/android-device-does-not-show-up-in-adb-list">this</a>
+                                or
+                                <a href="https://stackoverflow.com/questions/41792867/adb-device-list-is-empty?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa">this</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Now adb should be working.</li>
+                </ul>
+            </div>
+
+            <div class="sub-title">
+                <h3 id="start_helium">Installing and using Helium app</h3>
+                <p>Helium is the missing app sync and backup solution for Android. Helium does NOT require root. All Android users can use Helium to backup and sync Android applications.</p>
+
+                <p>Helium app is not enabled when first installed on your phone. In order to enable it, one must connect the phone to a computer and run one of Helium's desktop apps. Those desktop apps enables the app that is installed on the phone. Once enabled, the Helium app will function properly until the phone is rebooted (and then the app should be enabled again).</p>
+
+                <p>We will use Chrome to enable the app. You may choose other platform as well from <a href="https://github.com/koush/support-wiki/wiki/Helium-Desktop-Installer-and-Android-App">here</a></p></p>
+
+                <p>Enable Helium Android app:</p>
+
+                <ul>
+                    <li>Make sure that adb is set up and running, and that your phone is listed under <span class="code">adb devices</span>.</li>
+                    <li>Install Helium on your phone (from <a href="https://play.google.com/store/apps/details?id=com.koushikdutta.backup&hl=en">Google Play</a> or <a href="#">direct link</a>)</li>
+                    <li>Install Helium on Chrome browser (from <a href="https://chrome.google.com/webstore/detail/helium-backup/gpglbgbpeobllokpmeagpoagjbfknanl">Chrome Web Store</a> or <a href="#">direct link</a>)</li>
+                    <li>Connect your phone to your computer.</li>
+                    <li>
+                        Launch Helium app on your phone and press OK:
+                        <a href="img/guide/helium-ss-1.png" class="link-preview" data-lightbox="helium" data-title="Helium app - press ok" title="Helium app - press ok"><img class="screenshot" src="img/guide/helium-ss-1.png" alt="Helium app - press ok"/></i></a>
+                    </li>
+                    <li>
+                        Helium will now wait for the computer:
+                        <a href="img/guide/helium-ss-2.png" class="link-preview" data-lightbox="helium" data-title="Helium app - loading" title="Helium app - loading"><img class="screenshot" src="img/guide/helium-ss-2.png" alt="Helium app - loading"/></i></a>
+
+                    </li>
+                    <li>Open Chrome, navigate to <span class="code">chrome://apps</span> and open Helium Backup.</li>
+                    <li>
+                        Now Chrome's Helium Backup will open:
+                        <a href="img/guide/helium-ss-3.png" class="link-preview" data-lightbox="helium" data-title="Chrome Helium app - open" title="Chrome Helium app - open"><img class="screenshot" src="img/guide/helium-ss-3.png" alt="Chrome Helium app - open"/></i></a>
+
+                    </li>
+                    <li>
+                        Now Chrome's Helium Backup will try to detect your Phone:
+                        <a href="img/guide/helium-ss-4.png" class="link-preview" data-lightbox="helium" data-title="Chrome Helium app - loading" title="Chrome Helium app - loading"><img class="screenshot" src="img/guide/helium-ss-4.png" alt="Chrome Helium app - loading"/></i></a>
+
+                    </li>
+                    <li>
+                        Now Chrome's Helium Backup is ready to use:
+                        <a href="img/guide/helium-ss-5.png" class="link-preview" data-lightbox="helium" data-title="Chrome Helium app - read" title="Chrome Helium app - read"><img class="screenshot" src="img/guide/helium-ss-5.png" alt="Chrome Helium app - read"/></i></a>
+
+                    </li>
+                    <li>
+                        Go back to your phone, and press OK:
+                        <a href="img/guide/helium-ss-6.png" class="link-preview" data-lightbox="helium" data-title="Helium app - ready" title="Helium app - ready"><img class="screenshot" src="img/guide/helium-ss-6.png" alt="Helium app - ready"/></i></a>
+
+                    </li>
+
+                    <li>
+                        Now Helium should be working, and you may unplug your phone from the computer.
+                    </li>
+                </ul>
+            </div>
+            <div class="line"></div>
+
+        </div>
+
+        <!--==========================
+          Footer
+        ============================-->
+        <footer id="footer">
+            <div class="social-links">
+                <a href="https://github.com/eviabs" target="_blank" class="github"><i class="fa fa-github"></i></a>
+                <a href="https://eviabs.com" target="_blank" class="site"><i class="fa fa-globe"></i></a>
+                <a href="mailto:evyatarb@gmail.com" target="_blank" class="mail"><i class="fa fa-envelope"></i></a>
+            </div>
+            <div class="copyright">
+                Last updated <strong>July 2018</strong>
+            </div>
+            <div class="credits">
+                Created by <a href="https://eviabs.com/">eviabs</a>.
+                Hosted on GitHub Pages.
+            </div>
+        </footer><!-- #footer -->
+
+    </div>  <!-- Page Content END  -->
+</div>
+
+<script src="lib/jquery/jquery.min.js"></script>
+
+<script src="lib/jquery/jquery-migrate.min.js"></script>
+
+<!-- Popper.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+<!-- jQuery Custom Scroller CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<script src="lib/lightbox/js/lightbox.min.js"></script>
+
+<!-- Main JS Script -->
+<script src="js/main.js"></script>
+
+
+</body>
+
+</html>

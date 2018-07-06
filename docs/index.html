@@ -1,10 +1,672 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121798497-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-121798497-1');
+    </script>
+
+    <title>Android Backup and Restore guide</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Android, Backup, Restore, Helium, adb, root, guide" name="keywords">
+    <meta content="Android Backup and Restore Guide" name="description">
+    <meta name="Evyatar Ben-Shitrit" content="John Doe">
+
+    <!-- Favicons -->
+    <link href="img/favicon.png" rel="icon">
+    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 </head>
-<body>
-    Testing GH pages!
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+
+            <!-- Header -->
+            <header id="header">
+                <ul class="icons">
+                    <li><a href="https://github.com/eviabs/Android-Backup-and-Restore-Guide" target="_blank" class="icon fa-github"><span class="label">Github</span></a></li>
+                </ul>
+            </header>
+
+            <!-- Banner -->
+            <section id="banner">
+                <div class="content">
+                    <header>
+                        <h1>Android Backup and Restore guide for Non-Rooted Devices</h1>
+                        <p>by <a href="https://eviabs.com" target="_blank">Evyatar Ben-Shitrit</a></p>
+                    </header>
+                    <p>
+                        Android backup and restore process might be a little bothersome and somewhat complex. I'll try to simplify this process for you, and guide you through it. We will focus of the backup and restore process of single Android apps.
+                    </p>
+                    <p>
+                        As the title states, no root is needed. For that, we will use adb or Helium app.
+                    </p>
+                    <p>
+                        I'm using Windows platform, but this guide should work or any other platform.
+                    </p>
+                </div>
+                <span class="image object"><img src="img/Android-Backup.png" alt="" /></span>
+            </section>
+
+            <!-- Getting Started -->
+            <section id="started">
+                <header class="major">
+                    <h2>Getting Start</h2>
+                </header>
+                <p>
+                    We will start by installing adb and Helium app - at least one of those is needed for backing-up apps and restoring them.
+                    <br>
+                    <br>
+                    <br>
+                </p>
+
+                <div class="features">
+                    <article id="started_adb">
+                        <div class="content">
+                            <h3>Installing and using adb</h3>
+                            <blockquote><a href="https://developer.android.com/studio/command-line/adb.html">Android Debug Bridge (adb)</a> is a versatile command-line tool that lets you communicate with a device. The adb command facilitates a variety of device actions, such as installing and debugging apps, and it provides access to a Unix shell that you can use to run a variety of commands on a device</blockquote>
+                            <p><b>Getting adb working on your machine:</b></p>
+                            <ol>
+                                <li>Get adb (From <a href="https://developer.android.com/studio/command-line/adb.html">android developers site</a> or from <a href="=https://github.com/eviabs/Android-Backup-and-Restore-Guide/tree/master/adb%20fastboot%20files">my github</a>)</li>
+                                <li>Enable debugging mode on your phone (<a href="http://www.kingoapp.com/root-tutorials/how-to-enable-usb-debugging-mode-on-android.htm">How?</a>)</li>
+                                <li>Install Google USB Driver if you haven't got them installed (<a href="https://developer.android.com/studio/run/win-usb.html">How?</a>)</li>
+                                <li>Open cmd and navigate to the adb file location.</li>
+                                <li>Run <code>adb devices</code> and make sure that your device is listed:
+                                    <ul>
+                                        <li>
+                                            A successful command would look like this:
+                                            <a href="img/guide/adb-attached.png" class="link-preview" data-lightbox="cmd" data-title="adb attached device" title="adb attached device"><img class="cmd" src="img/guide/adb-attached.png" alt="adb attached device"/></i></a>
+                                            or like this:
+                                            <a href="img/guide/adb-daemon-attached.png" class="link-preview" data-lightbox="cmd" data-title="adb attached device" title="adb attached device"><img class="cmd" src="img/guide/adb-daemon-attached.png" alt="adb attached device"/></i></a>
+
+                                        </li>
+                                        <li>
+                                            If no devices are listed, and you are getting this message:
+                                            <a href="img/guide/adb-not-attached.png" class="link-preview" data-lightbox="cmd" data-title="adb no attached device" title="adb no attached device"><img class="cmd" src="img/guide/adb-not-attached.png" alt="adb no attached device"/></i></a>
+                                            Or this:
+                                            <a href="img/guide/adb-daemon-not-attached.png" class="link-preview" data-lightbox="cmd" data-title="adb no attached device" title="adb no attached device"><img class="cmd" src="img/guide/adb-daemon-not-attached.png" alt="adb no attached device"/></i></a>
+                                            Run <code>adb kill-server</code> and then run again <code>adb devices</code>.
+                                        </li>
+                                        <li>
+                                            If still no devices are listed, try one of the following solutions:
+                                            <a href="https://stackoverflow.com/questions/21170392/android-device-does-not-show-up-in-adb-list">this</a>
+                                            or
+                                            <a href="https://stackoverflow.com/questions/41792867/adb-device-list-is-empty?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa">this</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>Now adb should be working.</li>
+                            </ol>
+
+                        </div>
+                    </article>
+                    <article id="started_helium">
+                        <div class="content">
+                            <h3>Installing and using Helium app</h3>
+                            <blockquote>Helium is the missing app sync and backup solution for Android. Helium does NOT require root. All Android users can use Helium to backup and sync Android applications.</blockquote>
+
+                            <p>Helium app is not enabled when first installed on your phone. In order to enable it, one must connect the phone to a computer and run one of Helium's desktop apps. These desktop apps enable the app that is installed on the phone. Once enabled, the Helium app will function properly until the phone is rebooted (and then the app should be enabled again).</p>
+
+                            <p>We will use Chrome to enable the app, but you may choose other platform as well. Choose your preferred platform from <a href="https://github.com/koush/support-wiki/wiki/Helium-Desktop-Installer-and-Android-App">here</a>.</p></p>
+
+                            <p><b>Enable Helium Android app:</b></p>
+                            <ol>
+                                <li>Make sure that adb is set up and running, and that your phone is listed under <code>adb devices</code> (see <a href="#started_adb">Getting started with adb</a> section).</li>
+                                <li>Install Helium on your phone (from <a href="https://play.google.com/store/apps/details?id=com.koushikdutta.backup&hl=en">Google Play</a> or <a href="../Helium%20Backup/com.koushikdutta.backup_1.1.4.6-1475368292_minAPI14(nodpi)_apkmirror.com.apk">this direct link</a>)</li>
+                                <li>Install Helium on Chrome browser (from <a href="https://chrome.google.com/webstore/detail/helium-backup/gpglbgbpeobllokpmeagpoagjbfknanl">Chrome Web Store</a> or <a href="../Helium%20Backup/helium-backup_1_0_1_5.crx">this direct link</a>)</li>
+                                <li>Connect your phone to your computer.</li>
+                                <li>
+                                    Launch Helium app on your phone and press OK:
+                                    <a href="img/guide/helium-ss-1.png" class="link-preview" data-lightbox="helium" data-title="Helium app - press ok" title="Helium app - press ok"><img class="screenshot" src="img/guide/helium-ss-1.png" alt="Helium app - press ok"/></i></a>
+                                </li>
+                                <li>
+                                    Helium will now wait for the computer:
+                                    <a href="img/guide/helium-ss-2.png" class="link-preview" data-lightbox="helium" data-title="Helium app - loading" title="Helium app - loading"><img class="screenshot" src="img/guide/helium-ss-2.png" alt="Helium app - loading"/></i></a>
+
+                                </li>
+                                <li>Open Chrome, navigate to <code>chrome://apps</code> and open Helium Backup.</li>
+                                <li>
+                                    Now Chrome's Helium Backup will open:
+                                    <a href="img/guide/helium-ss-3.png" class="link-preview" data-lightbox="helium" data-title="Chrome Helium app - open" title="Chrome Helium app - open"><img class="screenshot" src="img/guide/helium-ss-3.png" alt="Chrome Helium app - open"/></i></a>
+
+                                </li>
+                                <li>
+                                    Now Chrome's Helium Backup will try to detect your Phone:
+                                    <a href="img/guide/helium-ss-4.png" class="link-preview" data-lightbox="helium" data-title="Chrome Helium app - loading" title="Chrome Helium app - loading"><img class="screenshot" src="img/guide/helium-ss-4.png" alt="Chrome Helium app - loading"/></i></a>
+
+                                </li>
+                                <li>
+                                    Now Chrome's Helium Backup is ready to use:
+                                    <a href="img/guide/helium-ss-5.png" class="link-preview" data-lightbox="helium" data-title="Chrome Helium app - read" title="Chrome Helium app - read"><img class="screenshot" src="img/guide/helium-ss-5.png" alt="Chrome Helium app - read"/></i></a>
+
+                                </li>
+                                <li>
+                                    Go back to your phone, and press OK:
+                                    <a href="img/guide/helium-ss-6.png" class="link-preview" data-lightbox="helium" data-title="Helium app - ready" title="Helium app - ready"><img class="screenshot" src="img/guide/helium-ss-6.png" alt="Helium app - ready"/></i></a>
+
+                                </li>
+
+                                <li>
+                                    Now Helium should be working, and you may unplug your phone from the computer.
+                                </li>
+                            </ol>
+
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Backup -->
+            <section id="backup">
+                <header class="major">
+                    <h2>Backup</h2>
+                </header>
+                <p>
+                    From Android 4.0, Android system lets us create Android Backup files (<code>.ab</code> files) that contain system and user data.
+                    <code>.ab</code> files don't necessary contain the local storage data (which located in the sd card), so make sure you copy the sd card content manually.
+
+                    <div class="box">Note that some apps disable the backup option, and cannot be backed-up or restored directly. If you wish to do so for such apps, read <a href="https://forum.xda-developers.com/android/software-hacking/guide-how-to-enable-adb-backup-app-t3495117">this post</a> or
+            <a href="https://en.wikipedia.org/wiki/Rooting_(Android)">root</a> your device.</div>
+                    <br>
+                    <br>
+                    <br>
+                </p>
+
+                <div class="features">
+                    <article id="backup_adb">
+                        <div class="content">
+                            <h3>Backup using adb</h3>
+                            <p>
+                                Creating an <code>.ab</code> backup file using adb.
+                            </p>
+                            <p><b>Single app backup:</b></p>
+
+                            <ol>
+                                <li>Make sure that adb is set up and running, and that your phone is listed under <code>adb devices</code> (see <a href="#started_adb">Getting started with adb</a> section).</li>
+
+                                <li>Run the command <code>adb backup -f myAndroidBackup.ab com.grindrapp.android</code> where:</li>
+                                <ul>
+                                    <li>
+                                        <code>myAndroidBackup.ab</code> is your backup name.
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <code>com.grindrapp.android</code> is your app's package name.
+                                            <br>
+                                            The apk's package name can be viewed by apps like <a href="https://play.google.com/store/apps/details?id=com.csdroid.pkg">this</a>.
+                                        </p>
+                                    </li>
+                                </ul>
+                                </li>
+
+                                <li>On your phone, fill in a password (if you wish) or leave blank. Press BACK UP MY DATA and wait for the process to complete.</li>
+                                <li>A backup file named <code>myAndroidBackup.ab</code> is now created on your current directory. This file can be used later on for restoration.
+                                    This backup <b>DOES NOT</b> include the application's installation file. If you wish to keep the installation file as well, see <a href="#backup_adb_other_ops">Other backup options</a>.</li>
+                                <li>If the backup file is empty or smaller than 2 kbs, try other version of adb, as advised <a href="https://android.stackexchange.com/a/123818/216569">here</a>.</li>
+                            </ol>
+
+                            <p id="backup_adb_other_ops"><b>Other backup options:</b></p>
+                            <p>If you wish to backup all apps at once or backup a system app, check out the following <code>adb backup</code> commands:</p>
+                            <ul>
+                                <li>Backup all nonsystem apk with the applications' installation files:<br>
+                                    <code>adb backup -apk -shared -nosystem -all -f myAndroidBackup.ab</code>
+                                </li>
+                                <li>Backup all system and nonsystem apk  with the applications' installation files:<br>
+                                    <code>adb backup -apk -noshared -system -all -f myAndroidBackup.ab</code>
+                                </li>
+                                <li>Backup a single app with the application's installation file:<br>
+                                    <code>adb backup -app -f myAndroidBackup.ab com.grindrapp.android</code>
+                                </li>
+                                <li>For the complete adb commands reference check out <a href="https://developer.android.com/studio/command-line/adb#issuingcommands">this</a>.</li>
+
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article id="backup_helium">
+                        <div class="content">
+                            <h3>Backup using Helium</h3>
+                            <p>Creating an <code>.ab</code> backup file using Helium.</p>
+                            <div class="box">Note that Helium <code>.ab</code> files are slightly different from the adb <code>.ab</code> files, and cannot be used by the adb itself without some modifications. So if you backup using Helium, you should restore using Helium as well.
+                                <br>
+                                <br>
+                                <blockquote>
+                                    Helium backups are normal adb backups created with boolean COMPRESS_FULL_BACKUPS = false, and the 18th byte
+                                    of the backup changed from 0 to 1 (I guess this is done by Helium intentionally).
+                                    Android should be able to restore helium backups properly, considering that first you change 18th byte from 1 to 0.
+                                    The files inside uncompressed backups don't necessarily match directly the ones in compressed format (even after decompression).
+                                </blockquote>
+                            </div>
+                            <ol>
+                                <li>Make sure that Helium app is set up and running (see <a href="#started_helium">Getting started with Helium</a> section).</li>
+
+                                <li>
+                                    Choose the apps ypu wish to backup (e.g. Grindr), check App Data Only (only if you don't wish do keep the app installation file as well) and press BACKUP:
+                                    <a href="img/guide/helium-ss-7.png" class="link-preview" data-lightbox="helium-backup" data-title="Helium app - choose app and press backup" title="Helium app - choose app and press backup"><img class="screenshot" src="img/guide/helium-ss-7.png" alt="Helium app - choose app and press backup"/></i></a>
+                                </li>
+
+                                <li>
+                                    Choose Internal Storage and wait (do not touch anything, the app will do this for you):
+                                    <a href="img/guide/helium-ss-8.png" class="link-preview" data-lightbox="helium-backup" data-title="Helium app - wait while backing up" title="Helium app - wait while backing up"><img class="screenshot" src="img/guide/helium-ss-8.png" alt="Helium app - wait while backing up"/></i></a>
+                                </li>
+
+                                <li>
+                                    When finished, the following dialog will appear (click OK and exit Helium):
+                                    <a href="img/guide/helium-ss-9.png" class="link-preview" data-lightbox="helium-backup" data-title="Helium app - backup complete" title="Helium app - backup complete"><img class="screenshot" src="img/guide/helium-ss-9.png" alt="Helium app - backup complete"/></i></a>
+                                </li>
+                                <li>Now your <code>.ab</code> backup file is on your phone's path <code>PhoneRootPath\carbon\com.grindrapp.android</code>. This file can be used later on by Helium for restoration.</li>
+                                <li>
+                                    If you get this error:
+                                    <a href="img/guide/helium-ss-10.png" class="link-preview" data-lightbox="helium-backup" data-title="Helium app - backup error" title="Helium app - backup error"><img class="screenshot" src="img/guide/helium-ss-10.png" alt="Helium app - backup error"/></i></a>
+                                    there are a few solutions which are discussed <a href="https://forums.androidcentral.com/ask-question/406201-helium-backup-app-error.html#post5752258">here</a>:
+                                    <ul>
+                                        <li>Clear Helium cache, clear Helium data, uninstall Helium, restart phone, reinstall Helium and try again.</li>
+                                        <li>Plug/unplug phone trick</li>
+                                        <li>Backup the app as shown in <a href="#backup_adb">Backup using adb</a> section, and then try again using Helium.</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- Restore -->
+            <section id="restore">
+                <header class="major">
+                    <h2>Restore</h2>
+                </header>
+                <p>
+                    After creating <code>.ab</code> backup files using adb, we can restore them at any time.
+
+                    <br>
+                    <br>
+                    <br>
+                </p>
+
+                <div class="features">
+                    <article id="restore_adb">
+                        <div class="content">
+                            <h3>Restore using adb</h3>
+
+                            <ol>
+                                <li>Make sure that adb is set up and running, and that your phone is listed under <code>adb devices</code> (see <a href="#started_adb">Getting started with adb</a> section).</li>
+                                <li>Make sure that the app you wish to restore is installed on your phone. This, in case you chose to backup data only (which means that adb will not install the app for you).</li>
+                                <li>Run the command <code>adb restore myAndroidBackup.ab</code> where:</li>
+                                <ul>
+                                    <li>
+                                        <code>myAndroidBackup.ab</code> is your backup name.
+                                    </li>
+
+                                </ul>
+                                </li>
+                                <li>App(s) is now restored.</li>
+                            </ol>
+                        </div>
+                    </article>
+
+                    <article id="restore_helium">
+                        <div class="content">
+                            <h3>Restore using Helium</h3>
+                            <div class="box">Note that Helium <code>.ab</code> files are slightly different from the adb <code>.ab</code> files, and cannot be used by the adb itself without some modifications. So if you backup using adb, you should restore using adb as well.</div>
+                            <ol>
+                                <li>Make sure that Helium app is set up and running (see <a href="#started_helium">Getting started with Helium</a> section).</li>
+                                <li>Make sure that the folder backup of the app you desire to restore is on your phone: <code>PhoneRootPath\carbon\app.package.name\</code>.</li>
+
+                                <li>
+                                    Open Helium, and go to RESTORE AND SYNC tab:
+                                    <a href="img/guide/helium-ss-re-1.png" class="link-preview" data-lightbox="helium-restore" data-title="Helium app - choose restore tab" title="Helium app - choose restore tab"><img class="screenshot" src="img/guide/helium-ss-re-1.png" alt="Helium app - choose restore tab"/></i></a>
+                                </li>
+
+                                <li>
+                                    Tap Internal Storage:
+                                    <a href="img/guide/helium-ss-re-2.png" class="link-preview" data-lightbox="helium-restore" data-title="Helium app - choose internal storage" title="Helium app - choose internal storage"><img class="screenshot" src="img/guide/helium-ss-re-2.png" alt="Helium app - choose internal storage"/></i></a>
+                                </li>
+
+                                <li>
+                                    Choose the apps you willing to restore and press RESTORE:
+                                    <a href="img/guide/helium-ss-re-3.png" class="link-preview" data-lightbox="helium-restore" data-title="Helium app - choose apps to restore" title="Helium app - choose apps to restore"><img class="screenshot" src="img/guide/helium-ss-re-3.png" alt="Helium app - choose apps to restore"/></i></a>
+                                </li>
+
+                                <li>
+                                    Wait for the proccess to complete (do not touch anything, the app will do this for you):
+                                    <a href="img/guide/helium-ss-re-4.png" class="link-preview" data-lightbox="helium-restore" data-title="Helium app - restoring" title="Helium app - restoring"><img class="screenshot" src="img/guide/helium-ss-re-4.png" alt="Helium app - restoring"/></i></a>
+                                </li>
+
+                                <li>
+                                    App is restored:
+                                    <a href="img/guide/helium-ss-re-5.png" class="link-preview" data-lightbox="helium-restore" data-title="Helium app - restored" title="Helium app - restored"><img class="screenshot" src="img/guide/helium-ss-re-5.png" alt="Helium app - restored"/></i></a>
+                                </li>
+
+                                <li>
+                                    You're done. You might need to log-in/sign-in to the restored app after a successful restore.
+                                </li>
+                            </ol>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- Advanced -->
+            <section id="advanced">
+                <header class="major">
+                    <h2>Advanced</h2>
+                </header>
+                <p>
+                    We know how to create <code>.ab</code> files that can be restored by adb or Helium app (but not both!).
+                    In some cases we will need to convert one type of backup to the other.
+
+                    In order to view a backup's content or modify it, we must convert it to a <code>.tar</code> archive.
+                    If we wish to restore our backed-up or modified data, we need to repack it as an <code>.ab</code> file.
+
+
+                    <br>
+                    <br>
+                    <br>
+                </p>
+
+                <div class="features">
+                    <article id="advanced_ab_conversion">
+                        <div class="content">
+                            <h3>Convert <code>.ab</code> backup file to <code>.tar</code> file and vice verca</h3>
+                            <p>Dealing with <code>.ab</code> files is not straightforward, and might be a bit tricky. I'll show you some methods and you are advised to try them all.</p>
+
+                            <h4>helium_ab2tar method</h4>
+                            <p>This is a small utility that I have found, and it works pretty well on my Windows 8 machine.</p>
+                            <div class="box">
+                                <p>
+                                    You can compile the code by yourself (files are <a href="https://github.com/eviabs/Android-Backup-and-Restore-Guide/tree/master/helium_ab2tar">here</a>), but I have already done this for you. Check out my <a href="https://github.com/eviabs/Android-Backup-and-Restore-Guide/tree/master/helium_ab2tar/extracted%20files">compiled files</a>.
+                                    All the exe files are there. If you fail to run them, you'll have to compile them by your own using this <a href="https://forum.xda-developers.com/showpost.php?p=75862940&postcount=7">post</a>:
+                                </p>
+                                <blockquote>
+                                    <p>Hi, the "helium_ab2tar" (<a href="https://github.com/floe/helium_ab2tar">https://github.com/floe/helium_ab2tar</a>) finally helped me. Good work!
+                                        I was running Win7 and didn't have any C compiler installed, so here is what I found:</p>
+                                    <ol>
+                                        <li>from the link above, extract helium_ab2tar-master.zip to a new directory</li>
+                                        <li>from <a href="http://gnuwin32.sourceforge.net/packages/make.htm">http://gnuwin32.sourceforge.net/packages/make.htm</a> download Binaries and Dependencies and extract files make.exe, libintl3.dll, libiconv2.dll to your helium_ab2tar-master directory</li>
+                                        <li>from <a href="https://bellard.org/tcc/">https://bellard.org/tcc/</a> download a recent TinyCC build and extract the whole zip into your helium_ab2tar-master directory</li>
+                                        <li>edit the makefile and change "CC=gcc" to "CC=tcc\tcc.exe"</li>
+                                        <li>change "-o ab2tar_cut" to "-o ab2tar_cut.exe", "-o ab2tar_corr" to "-o ab2tar_corr.exe", "-o tar2ab_cut" to "-o tar2ab_cut.exe", "-o tar2ab_corr" to "-o tar2ab_corr.exe"</li>
+                                        <li>finally run make.exe</li>
+                                    </ol>
+
+                                </blockquote>
+                            </div>
+                            <ul>
+                                <li>
+                                    To convert <code>.ab</code> file to <code>.tar</code> file, run <code>ab2tar_cut [.ab file] [temporary file]</code> and then run  <code>ab2tar_corr [temporary file] [.tar file]</code>
+                                </li>
+                                <li>
+                                    To convert <code>.tar</code> file to <code>.ab</code> file, run <code>tar2ab_cut [.tar file] [temporary file]</code> and then run  <code>tar2ab_corr [temporary file] [.ab file]</code>
+                                </li>
+                                <li>That's it. The hard part is actually compiling the executables on your platform.</li>
+                            </ul>
+
+                            <br>
+                            <br>
+                            <br>
+                            <h4>android-backup-tookit methods</h4>
+                            <p>This is a another utility that I have found, and it will work on any platform (Thank you JVM). You can download the files from <a href="https://sourceforge.net/projects/android-backup-toolkit/">sourceforge</a> or from my <a href="https://github.com/eviabs/Android-Backup-and-Restore-Guide/tree/master/android-backup-tookit">github</a>.
+                                Search for the needed <code>.jar</code> file inside the directories you have just downloaded.</p>
+                            <div class="box">Most of the information below was adopted from <a href="https://forum.xda-developers.com/showthread.php?t=2011811">this xda thread</a>. If you have issues, read the whole thread.</div>
+                            <h5>Adb <code>.ab</code> backup to <code>.tar</code> using <code>abe.jar</code></h5>
+                            <ol>
+                                <li>Make sure you've got Java installed.</li>
+                                <li>Run the command <code>java -jar abe.jar unpack myAndroidBackup.ab myAndroidBackup.tar [password]</code> where:</li>
+                                <ul>
+                                    <li><code>myAndroidBackup.ab</code> is your backup name.</li>
+                                    <li><code>myAndroidBackup.tar</code> is your <code>.tar</code> that will be created.</li>
+                                    <li><code>[password]</code> is your backup password. Leave blank is no password set.</li>
+                                </ul>
+                                <li>A new <code>.tar</code> file is now created, which contains your data.</li>
+                            </ol>
+
+                            <h5>Healium <code>.ab</code> backup to <code>.tar</code></h5>
+                            <ol>
+                                <li>Make sure you've got Java installed.</li>
+                                <li>Run the command  <code>java -jar hbe.jar -force myHeliumAndroidBackup.ab</code></code>
+                                    <br>
+                                    Or the command <code>java -jar hbe.jar -tar myHeliumAndroidBackup.ab</code>
+                                    <br>
+                                    where:
+                                    <ul>
+                                        <li><code>-force/-tar</code> means that either <code>-force</code> or <code>-tar</code> arguments should work. Try both.</li>
+                                        <li><code>myHeliumAndroidBackup.ab</code> is your backup name.</li>
+                                    </ul>
+                                <li>A new <code>.tar</code> file is now created, which contains your data.</li>
+                                <li>If exceptions are thrown:
+                                    <ul>
+                                        <li>
+                                            take a look at <a href="https://sourceforge.net/p/heliumbackupextractor/discussion/general/thread/49e5bb28/">this</a>:
+                                            <blockquote>I realized that it works if I import the project to Eclipse and use the -force flag. I looked to see what Eclipse's execute command was.
+                                                Turns out if I add "-Dfile.encoding=US-ASCII", then everything works fine. Not sure why, though.
+                                                <br>
+                                                Ex: <code>java -Dfile.encoding=US-ASCII -jar hbe.jar -force myHeliumAndroidBackup.ab</code></blockquote>
+                                        </li>
+                                        <li>
+                                            Make sure you did not set any password during the backup process, or don't have any default password set for backups.
+                                        </li>
+                                        <li>Debug the code by yourself and find out what's the Exception source. The code is pretty short and not very complicated.</li>
+                                    </ul>
+                                </li>
+
+                            </ol>
+
+                            <h5><code>.tar</code> to <code>.ab</code></h5>
+                            <ol>
+                                <li>Make sure you've got Java installed.</li>
+                                <li>Run the following command <code>java -jar abe.jar pack myAndroidBackupTar.tar myAndroidBackup.ab [password]</code>
+                                    <br>
+                                    Or the following command if you got Android KitKat (4.4 – 4.4.4) <code>java -jar abe.jar pack 4.4.3+ pack-kk myAndroidBackupTar.tar myAndroidBackup.ab [password]</code>
+                                    <br>
+                                    where:
+                                </li>
+                                <ul>
+                                    <li><code>myAndroidBackupTar.tar</code> is your backup archive.</li>
+                                    <li><code>myAndroidBackup.ab</code> is your backup name that will be created.</li>
+                                    <li><code>[password]</code> is your backup password. Leave blank if no password set.</li>
+                                </ul>
+                                <li>A new <code>.tar</code> file is now created, which contains your data.</li>
+                            </ol>
+
+                            <br>
+                            <br>
+                            <br>
+                            <h4>Using dd (Unix)</h4>
+                            <p><a href="https://en.wikipedia.org/wiki/Dd_(Unix)">dd</a> is a command-line utility for Unix and Unix-like operating systems whose primary purpose is to convert and copy files.</p>
+                            <h5>Adb <code>.ab</code> backup to <code>.tar</code> using dd</h5>
+                            <ol>
+                                <li>Run the command <code>dd if=myAndroidBackup.ab  bs=1 skip=24|openssl zlib -d > myAndroidBackup.tar</code> where:</li>
+                                <ul>
+                                    <li><code>myAndroidBackup.ab</code> is your backup name.</li>
+                                    <li><code>myAndroidBackup.tar</code> is your <code>.tar</code> that will be created.</li>
+                                </ul>
+                                <li>A new <code>.tar</code> file is now created, which contains your data.</li>
+                            </ol>
+                        </div>
+                    </article>
+
+                    <article id="advanced_ab_modifing">
+                        <div class="content">
+                            <br>
+                            <br>
+                            <br>
+                            <h3>View and modify <code>.ab</code> backup file content</h3>
+                            <p>After converting an <code>.ab</code> file to a <code>.tar</code> file, we can view and modify the
+                                <code>.tar</code> content, and then repack the <code>.tar</code> file as an <code>.ab</code> file that can be restored. This way,
+                                we can modify internal user data that cannot be accessed without a root. Data such as internal DBs, preferences files, cache and so on.
+                            </p>
+                            <p>If you want to read more, check out <a href="https://nelenkov.blogspot.com/2012/06/unpacking-android-backups.html">this post</a>.</p>
+
+                            <p>Let's take a look at an example:</p>
+                            <ol>
+                                <li>Iv'e used adb to backup an app called <a href="https://play.google.com/store/apps/details?id=com.melodis.midomiMusicIdentifier&hl=en">SoundHound</a>, and then I converted the <code>.ab</code> file to a <code>.tar</code> file.
+                                    You can see that the backup file was compressed, and that after converting it to a <code>.tar</code> file it was decompressed.
+                                    <a href="img/guide/advanced-ss-1.png" class="link-preview" data-lightbox="advanced" data-title="Advanced - ab and tar" title="Advanced - ab and tar"><img class="cmd" src="img/guide/advanced-ss-1.png" alt="Advanced - ab and tar"/></i></a>
+                                </li>
+
+                                <li>Lets extract the <code>.tar</code> file, and take a look at its content (the <code>.tar</code> contains a single folder named <code>apps</code>):
+                                    <a href="img/guide/advanced-ss-2.png" class="link-preview" data-lightbox="advanced" data-title="Advanced - tar content" title="Advanced - tar content"><img class="cmd" src="img/guide/advanced-ss-2.png" alt="Advanced - tar content"/></i></a>
+                                    <ul>
+                                        <li><code>db/</code> folder contains databases</li>
+                                        <li><code>f/</code> folder contains app files</li>
+                                        <li><code>r/</code> folder contains some cached data</li>
+                                        <li><code>sp/</code> folder contains shared preferences files</li>
+                                        <li><code>a/</code> folder contains the application installation file (which is not present here, since I had omitted the <code>-apk</code> flag during <code>adb backup</code>)</li>
+                                        <li><code>_manifest</code> file contains the app's version code, the platform's version code, a flag indicating whether the archive contains the app APK and finally the app's signing certificate (called 'signature' in Android API's). It's not the regular <a href="https://developer.android.com/guide/topics/manifest/manifest-intro">AndroidManifest.xml</a> file.</li>
+                                    </ul>
+                                </li>
+
+                                <li> I replaced the file <code>userImage.png</code> inside the <code>f/</code> folder:
+                                    <a href="img/guide/advanced-ss-3.png" class="link-preview" data-lightbox="advanced" data-title="Advanced - edit tar" title="Advanced - edit tar"><img class="cmd" src="img/guide/advanced-ss-3.png" alt="Advanced - edit tar"/></i></a>
+                                </li>
+
+                                <li> I also edited some settings in the <code>application_settings.xml</code> inside the <code>sp/</code> folder:
+                                    <a href="img/guide/advanced-ss-4.png" class="link-preview" data-lightbox="advanced" data-title="Advanced - edit tar" title="Advanced - edit tar"><img class="cmd" src="img/guide/advanced-ss-4.png" alt="Advanced - edit tar"/></i></a>
+                                </li>
+
+                                <li>I repacked the folder into a <code>.tar</code> file.</li>
+                                <li>And converted the <code>.tar</code> file back into an <code>.ab</code> file.</li>
+                                <li>Then I used <code>adb restore</code> command to restore my modified data.</li>
+                                <li>
+                                    Now my profile picture is changed, as well as some settings:
+                                    <a href="img/guide/advanced-ss-5.png" class="link-preview" data-lightbox="advanced" data-title="Advanced - result" title="Advanced - result"><img class="cmd" src="img/guide/advanced-ss-5.png" alt="Advanced - result"/></i></a>
+
+                                </li>
+
+                            </ol>
+
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Summery -->
+            <section id="summery">
+                <header class="major">
+                    <h2>Summery</h2>
+                </header>
+                <p>
+                    So this is what I have learnt in the past several years as an Android user. I hope it will help you when in need.
+
+                    <br>
+                    <br>
+                    <br>
+                </p>
+
+                <div class="features">
+                    <article >
+                        <div class="content">
+                            <h3>Contact me</h3>
+                                <p>If you have any questions, remarks or anything else you wish to tell me - feel free to <a href="mailto:evyatarb@gmail.com">mail me</a> or create an issue on <a href="https://github.com/eviabs/Android-Backup-and-Restore-Guide/issues">my github page</a>.</p>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="inner">
+
+            <!-- Logo -->
+            <section id="logo" class="alt">
+                <h2>Android Backup and Restore Guide</h2>
+            </section>
+
+            <!-- Menu -->
+            <nav id="menu">
+                <ul>
+                    <!-- Intro -->
+                    <li><a href="#banner">Intro</a></li>
+
+                    <!-- Getting Started -->
+                    <li>
+                        <span class="opener">Getting Started</span>
+                        <ul>
+                            <li><a href="#started">Let's start</a></li>
+                            <li><a href="#started_adb">Install adb</a></li>
+                            <li><a href="#started_helium">Install Helium</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Backup -->
+                    <li>
+                        <span class="opener">Backup</span>
+                        <ul>
+                            <li><a href="#backup">Backup intro</a></li>
+                            <li><a href="#backup_adb">Backup using adb</a></li>
+                            <li><a href="#backup_helium">Backup using Helium</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Restore -->
+                    <li>
+                        <span class="opener">Restore</span>
+                        <ul>
+                            <li><a href="#restore">Restore intro</a></li>
+                            <li><a href="#restore_adb">Restore using adb</a></li>
+                            <li><a href="#restore_helium">Restore using Helium</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Advanced -->
+                    <li>
+                        <span class="opener">Advanced</span>
+                        <ul>
+                            <li><a href="#advanced">Advanced intro</a></li>
+                            <li><a href="#advanced_ab_conversion">Converting tar and ab files</a></li>
+                            <li><a href="#advanced_ab_modifing">Modifying tar and ab content</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Summery -->
+                    <li><a href="#summery">Summery</a></li>
+
+                </ul>
+            </nav>
+
+            <!-- Footer -->
+            <footer id="footer" class="align-center">
+                <ul class="icons">
+                    <li><a href="https://github.com/eviabs/Android-Backup-and-Restore-Guide" target="_blank" class="icon fa-github"><span class="label">Github</span></a></li>
+                    <li><a href="https://eviabs.com" target="_blank" class="icon fa-globe"><span class="label">Site</span></a></li>
+                    <li><a href="mailto:evyatarb@gmail.com" target="_blank" class="icon fa-envelope"><span class="label">Mail</span></a></li>
+                </ul>
+                <p class="copyright">Last updated: July 2018</p>
+                <p class="copyright">Created by <a href="https://eviabs.com">eviabs</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+            </footer>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="js/jquery.min.js"></script>
+<script src="js/browser.min.js"></script>
+<script src="js/breakpoints.min.js"></script>
+<script src="js/util.js"></script>
+<script src="js/main.js"></script>
+<script src="lib/lightbox/js/lightbox.min.js"></script>
+
 </body>
 </html>
