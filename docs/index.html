@@ -50,7 +50,9 @@
                         <p>by <a href="https://eviabs.com" target="_blank">Evyatar Ben-Shitrit</a></p>
                     </header>
                     <p>
-                        Android backup and restore process might be a little bothersome and somewhat complex. I'll try to simplify this process for you, and guide you through it. We will focus of the backup and restore process of single Android apps.
+                        Android backup and restore process might be a little bothersome and somewhat complex.
+                        I'll try to simplify this process for you, and guide you through it.
+                        We will focus oמ the backup and restore process of single Android apps.
                     </p>
                     <p>
                         As the title states, no root is needed. For that, we will use adb or Helium app.
@@ -255,7 +257,7 @@
                                 <li>Make sure that Helium app is set up and running (see <a href="#started_helium">Getting started with Helium</a> section).</li>
 
                                 <li>
-                                    Choose the apps ypu wish to backup (e.g. Grindr), check App Data Only (only if you don't wish do keep the app installation file as well) and press BACKUP:
+                                    Choose the apps you wish to backup (e.g. Grindr), check App Data Only (only if you don't wish do keep the app installation file as well) and press BACKUP:
                                     <a href="img/guide/helium-ss-7.png" class="link-preview" data-lightbox="helium-backup" data-title="Helium app - choose app and press backup" title="Helium app - choose app and press backup"><img class="screenshot" src="img/guide/helium-ss-7.png" alt="Helium app - choose app and press backup"/></i></a>
                                 </li>
 
@@ -268,7 +270,8 @@
                                     When finished, the following dialog will appear (click OK and exit Helium):
                                     <a href="img/guide/helium-ss-9.png" class="link-preview" data-lightbox="helium-backup" data-title="Helium app - backup complete" title="Helium app - backup complete"><img class="screenshot" src="img/guide/helium-ss-9.png" alt="Helium app - backup complete"/></i></a>
                                 </li>
-                                <li>Now your <code>.ab</code> backup file is on your phone's path <code>PhoneRootPath\carbon\com.grindrapp.android</code>. This file can be used later on by Helium for restoration.</li>
+                                <li>Now your <code>.ab</code> backup file is on your phone's path <code>PhoneRootPath\carbon\com.grindrapp.android\</code>.
+                                    This folder (which contains the <code>.ab</code> file and some other Helium stuff) can be used later on by Helium for restoration.</li>
                                 <li>
                                     If you get this error:
                                     <a href="img/guide/helium-ss-10.png" class="link-preview" data-lightbox="helium-backup" data-title="Helium app - backup error" title="Helium app - backup error"><img class="screenshot" src="img/guide/helium-ss-10.png" alt="Helium app - backup error"/></i></a>
@@ -339,7 +342,7 @@
                                 </li>
 
                                 <li>
-                                    Choose the apps you willing to restore and press RESTORE:
+                                    Choose the apps you're willing to restore and press RESTORE:
                                     <a href="img/guide/helium-ss-re-3.png" class="link-preview" data-lightbox="helium-restore" data-title="Helium app - choose apps to restore" title="Helium app - choose apps to restore"><img class="screenshot" src="img/guide/helium-ss-re-3.png" alt="Helium app - choose apps to restore"/></i></a>
                                 </li>
 
@@ -462,7 +465,7 @@
                                         <li>
                                             Make sure you did not set any password during the backup process, or don't have any default password set for backups.
                                         </li>
-                                        <li>Debug the code by yourself and find out what's the Exception source. The code is pretty short and not very complicated.</li>
+                                        <li>Debug the java code by yourself and find out what's the Exception source. The code is pretty short and not very complicated.</li>
                                     </ul>
                                 </li>
 
@@ -510,7 +513,7 @@
                             <h3>View and modify <code>.ab</code> backup file content</h3>
                             <p>After converting an <code>.ab</code> file to a <code>.tar</code> file, we can view and modify the
                                 <code>.tar</code> content, and then repack the <code>.tar</code> file as an <code>.ab</code> file that can be restored. This way,
-                                we can modify internal user data that cannot be accessed without a root. Data such as internal DBs, preferences files, cache and so on.
+                                we can modify internal user data that cannot be accessed without root. Data such as internal DBs, preferences files, cache and so on.
                             </p>
                             <p>If you want to read more, check out <a href="https://nelenkov.blogspot.com/2012/06/unpacking-android-backups.html">this post</a>.</p>
 
@@ -542,13 +545,14 @@
                                 </li>
 
                                 <li>I repacked the folder into a <code>.tar</code> file.</li>
-                                <li>And converted the <code>.tar</code> file back into an <code>.ab</code> file.</li>
+                                <li>I converted the <code>.tar</code> file back to an <code>.ab</code> file.</li>
                                 <li>Then I used <code>adb restore</code> command to restore my modified data.</li>
                                 <li>
                                     Now my profile picture is changed, as well as some settings:
                                     <a href="img/guide/advanced-ss-5.png" class="link-preview" data-lightbox="advanced" data-title="Advanced - result" title="Advanced - result"><img class="cmd" src="img/guide/advanced-ss-5.png" alt="Advanced - result"/></i></a>
-
                                 </li>
+                                <li>This particular scenario of changing my profile picture is, obviously, not very interesting. But you could modify databases, extract protected files and so on.</li>
+
 
                             </ol>
 
@@ -574,7 +578,11 @@
                     <article >
                         <div class="content">
                             <h3>Contact me</h3>
-                                <p>If you have any questions, remarks or anything else you wish to tell me - feel free to <a href="mailto:evyatarb@gmail.com">mail me</a> or create an issue on <a href="https://github.com/eviabs/Android-Backup-and-Restore-Guide/issues">my github page</a>.</p>
+                                <p>If you have any questions, remarks or anything else you wish to tell me
+                                    - feel free to <a href="mailto:evyatarb@gmail.com">mail me</a> or create an issue on <a href="https://github.com/eviabs/Android-Backup-and-Restore-Guide/issues">my github page</a>.
+                                </p>
+
+                            <p>Happy hacking! :)</p>
                         </div>
                     </article>
 
