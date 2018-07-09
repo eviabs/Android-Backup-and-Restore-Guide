@@ -270,7 +270,7 @@
                                     When finished, the following dialog will appear (click OK and exit Helium):
                                     <a href="img/guide/helium-ss-9.png" class="link-preview" data-lightbox="helium-backup" data-title="Helium app - backup complete" title="Helium app - backup complete"><img class="screenshot" src="img/guide/helium-ss-9.png" alt="Helium app - backup complete"/></i></a>
                                 </li>
-                                <li>Now your <code>.ab</code> backup file is on your phone's path <code>PhoneRootPath\carbon\com.grindrapp.android\</code>.
+                                <li>Now your <code>.ab</code> backup file is on your phone's path <code>..\carbon\com.grindrapp.android\</code>.
                                     This folder (which contains the <code>.ab</code> file and some other Helium stuff) can be used later on by Helium for restoration.</li>
                                 <li>
                                     If you get this error:
@@ -402,7 +402,7 @@
                                         I was running Win7 and didn't have any C compiler installed, so here is what I found:</p>
                                     <ol>
                                         <li>from the link above, extract helium_ab2tar-master.zip to a new directory</li>
-                                        <li>from <a href="http://gnuwin32.sourceforge.net/packages/make.htm">http://gnuwin32.sourceforge.net/packages/make.htm</a> download Binaries and Dependencies and extract files make.exe, libintl3.dll, libiconv2.dll to your helium_ab2tar-master directory</li>
+                                        <li>from <a href="http://gnuwin32.sourceforge.net/packages/make.htm">here</a> download Binaries and Dependencies and extract files make.exe, libintl3.dll, libiconv2.dll to your helium_ab2tar-master directory</li>
                                         <li>from <a href="https://bellard.org/tcc/">https://bellard.org/tcc/</a> download a recent TinyCC build and extract the whole zip into your helium_ab2tar-master directory</li>
                                         <li>edit the makefile and change "CC=gcc" to "CC=tcc\tcc.exe"</li>
                                         <li>change "-o ab2tar_cut" to "-o ab2tar_cut.exe", "-o ab2tar_corr" to "-o ab2tar_corr.exe", "-o tar2ab_cut" to "-o tar2ab_cut.exe", "-o tar2ab_corr" to "-o tar2ab_corr.exe"</li>

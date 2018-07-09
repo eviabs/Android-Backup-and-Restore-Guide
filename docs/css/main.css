@@ -141,6 +141,14 @@ input, select, textarea {
 
         }
 
+    .lightbox a {
+        border-bottom: none;
+    }
+
+    .lightbox a:hover {
+        border-bottom: none;
+    }
+
     a {
         -moz-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
         -webkit-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
@@ -459,6 +467,8 @@ input, select, textarea {
 img.cmd{
     display: block;
     padding: 4px;
+    width: 70%;
+    height: 70%;
 }
 img.screenshot{
     display: block;
