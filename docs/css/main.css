@@ -467,9 +467,17 @@ input, select, textarea {
 img.cmd{
     display: block;
     padding: 4px;
-    width: 70%;
-    height: 70%;
+
 }
+
+@media screen and (max-width: 736px) {
+
+    img.cmd{
+        width: 70%;
+        height: 70%;
+    }
+}
+
 img.screenshot{
     display: block;
     padding: 10px;
