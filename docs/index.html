@@ -55,7 +55,7 @@
                         We will focus on the backup and restore process of single Android apps.
                     </p>
                     <p>
-                        As the title states, no root is needed. For that, we will use adb or Helium app.
+                        As the title states, no <a href="https://en.wikipedia.org/wiki/Rooting_(Android)">root</a> is needed. For that, we will use adb or Helium app.
                     </p>
                     <p>
                         I'm using Windows platform, but this guide should work or any other platform.
@@ -83,7 +83,7 @@
                             <blockquote><a href="https://developer.android.com/studio/command-line/adb.html">Android Debug Bridge (adb)</a> is a versatile command-line tool that lets you communicate with a device. The adb command facilitates a variety of device actions, such as installing and debugging apps, and it provides access to a Unix shell that you can use to run a variety of commands on a device</blockquote>
                             <p><b>Getting adb working on your machine:</b></p>
                             <ol>
-                                <li>Get adb (From <a href="https://developer.android.com/studio/command-line/adb.html">android developers site</a> or from <a href="=https://github.com/eviabs/Android-Backup-and-Restore-Guide/tree/master/adb%20fastboot%20files">my github</a>)</li>
+                                <li>Get adb (From <a href="https://developer.android.com/studio/command-line/adb.html">android developers site</a> or from <a href="https://github.com/eviabs/Android-Backup-and-Restore-Guide/tree/master/adb%20fastboot%20files">my github</a>)</li>
                                 <li>Enable debugging mode on your phone (<a href="http://www.kingoapp.com/root-tutorials/how-to-enable-usb-debugging-mode-on-android.htm">How?</a>)</li>
                                 <li>Install Google USB Driver if you haven't got them installed (<a href="https://developer.android.com/studio/run/win-usb.html">How?</a>)</li>
                                 <li>Open cmd and navigate to the adb file location.</li>
@@ -130,9 +130,9 @@
                                 <li>Make sure that adb is set up and running, and that your phone is listed under <code>adb devices</code> (see <a href="#started_adb">Getting started with adb</a> section).</li>
                                 <li>Install Helium on your phone (from <a href="https://play.google.com/store/apps/details?id=com.koushikdutta.backup&hl=en">Google Play</a> or <a href="../Helium%20Backup/com.koushikdutta.backup_1.1.4.6-1475368292_minAPI14(nodpi)_apkmirror.com.apk">this direct link</a>)</li>
                                 <li>Install Helium on Chrome browser (from <a href="https://chrome.google.com/webstore/detail/helium-backup/gpglbgbpeobllokpmeagpoagjbfknanl">Chrome Web Store</a> or <a href="../Helium%20Backup/helium-backup_1_0_1_5.crx">this direct link</a>)</li>
-                                <li>Connect your phone to your computer.</li>
+                                <li>Launch Helium app on your phone.</li>
                                 <li>
-                                    Launch Helium app on your phone and press OK:
+                                    Connect your phone to your computer, and press OK:
                                     <a href="img/guide/helium-ss-1.png" class="link-preview" data-lightbox="helium" data-title="Helium app - press ok" title="Helium app - press ok"><img class="screenshot" src="img/guide/helium-ss-1.png" alt="Helium app - press ok"/></i></a>
                                 </li>
                                 <li>
@@ -179,7 +179,8 @@
                 </header>
                 <p>
                     From Android 4.0, Android system lets us create Android Backup files (<code>.ab</code> files) that contain system and user data.
-                    <code>.ab</code> files don't necessary contain the local storage data (which located in the sd card), so make sure you copy the sd card content manually.
+                    <code>.ab</code> files don't <strong>necessarily</strong> contain the local storage data (which located in the sd card), so make sure you copy the sd card content manually. <code>.ab</code> files
+                    may contain the app installation file (<code>.apk</code> file), depends on your backup preferences.
 
                     <div class="box">Note that some apps disable the backup option, and cannot be backed-up or restored directly. If you wish to do so for such apps, read <a href="https://forum.xda-developers.com/android/software-hacking/guide-how-to-enable-adb-backup-app-t3495117">this post</a> or
             <a href="https://en.wikipedia.org/wiki/Rooting_(Android)">root</a> your device.</div>
@@ -193,7 +194,7 @@
                         <div class="content">
                             <h3>Backup using adb</h3>
                             <p>
-                                Creating an <code>.ab</code> backup file using adb.
+                                Creating an <code>.ab</code> backup file using adb. Partially based on <a href="https://forum.xda-developers.com/galaxy-nexus/general/guide-phone-backup-unlock-root-t1420351">this XDA thread.</a>
                             </p>
                             <p><b>Single app backup:</b></p>
 
@@ -218,22 +219,34 @@
                                 <li>On your phone, fill in a password (if you wish) or leave blank. Press BACK UP MY DATA and wait for the process to complete.</li>
                                 <li>A backup file named <code>myAndroidBackup.ab</code> is now created on your current directory. This file can be used later on for restoration.
                                     This backup <b>DOES NOT</b> include the application's installation file. If you wish to keep the installation file as well, see <a href="#backup_adb_other_ops">Other backup options</a>.</li>
+                                <li>If the command was failed to run, try to surround the arguments with single/double quotes: <code>adb backup '-f myAndroidBackup.ab com.grindrapp.android'</code> or <code>adb backup "-f myAndroidBackup.ab com.grindrapp.android"</code></li>
                                 <li>If the backup file is empty or smaller than 2 kbs, try other version of adb, as advised <a href="https://android.stackexchange.com/a/123818/216569">here</a>.</li>
+
                             </ol>
 
                             <p id="backup_adb_other_ops"><b>Other backup options:</b></p>
-                            <p>If you wish to backup all apps at once or backup a system app, check out the following <code>adb backup</code> commands:</p>
+                            <p>If you wish to backup all apps at once or backup a system app, check out the following <code>adb backup</code> arguments/flags:</p>
                             <ul>
-                                <li>Backup all nonsystem apk with the applications' installation files:<br>
-                                    <code>adb backup -apk -shared -nosystem -all -f myAndroidBackup.ab</code>
+                                <li><code>adb backup -f file_name</code><br>
+                                    Set the name of the created backup file to be <code>file_name</code>.
                                 </li>
-                                <li>Backup all system and nonsystem apk  with the applications' installation files:<br>
-                                    <code>adb backup -apk -noshared -system -all -f myAndroidBackup.ab</code>
+                                <li><code>adb backup -apk|-noapk</code><br>
+                                    Choose whether to keep the app installation file inside the backup file (<code>-apk</code>) or not (<code>-noapk</code>). The default is <code>-noapk</code>.
                                 </li>
-                                <li>Backup a single app with the application's installation file:<br>
-                                    <code>adb backup -app -f myAndroidBackup.ab com.grindrapp.android</code>
+                                <li><code>adb backup -shared|-noshared</code><br>
+                                    Choose whether to backup the device's shared storage (SD card content) or not to. To enable it use <code>-shared</code>, and to disable it use <code>-noshared</code>. The default is <code>-noshared</code>. <strong>As stated above, this option doesn't work very well, and you are strongly advised to backup the SD card content by yourself</strong>
                                 </li>
-                                <li>For the complete adb commands reference check out <a href="https://developer.android.com/studio/command-line/adb#issuingcommands">this</a>.</li>
+                                <li><code>adb backup -all</code><br>
+                                    This is just an easy way to say to backup ALL apps, and create a full system backup.
+                                </li>
+                                <li><code>adb backup -system|-nosystem</code><br>
+                                This flag sets whether or not the <code>-all</code> flag also includes system applications or not. The default is <code>-system</code>.
+                                </li>
+                                <li>Let's look at an example:<br>
+                                    <code>adb backup -f myAndroidBackup com.grindrapp.android -apk -shared</code><br>
+                                    This command will create a file named <code>myAndroidBackup</code> that includes a backup, the apk installation file and the SD content of my Grindr app.
+                                </li>
+                                <li>For the complete adb commands reference see <a href="https://developer.android.com/studio/command-line/adb#issuingcommands">this</a>.</li>
 
                             </ul>
                         </div>
@@ -278,7 +291,8 @@
                                     there are a few solutions which are discussed <a href="https://forums.androidcentral.com/ask-question/406201-helium-backup-app-error.html#post5752258">here</a>:
                                     <ul>
                                         <li>Clear Helium cache, clear Helium data, uninstall Helium, restart phone, reinstall Helium and try again.</li>
-                                        <li>Plug/unplug phone trick</li>
+                                        <li>Plug/unplug phone trick (See <a href="https://forums.androidcentral.com/ask-question/406201-helium-backup-app-error.html#post5752258">this</a>).</li>
+                                        <li>Plug/unplug phone trick (See <a href="https://forums.androidcentral.com/ask-question/406201-helium-backup-app-error.html#post5752258">this</a>).</li>
                                         <li>Backup the app as shown in <a href="#backup_adb">Backup using adb</a> section, and then try again using Helium.</li>
                                     </ul>
                                 </li>
@@ -395,7 +409,7 @@
                             <div class="box">
                                 <p>
                                     You can compile the code by yourself (files are <a href="https://github.com/eviabs/Android-Backup-and-Restore-Guide/tree/master/helium_ab2tar">here</a>), but I have already done this for you. Check out my <a href="https://github.com/eviabs/Android-Backup-and-Restore-Guide/tree/master/helium_ab2tar/extracted%20files">compiled files</a>.
-                                    All the exe files are there. If you fail to run them, you'll have to compile them by your own using this <a href="https://forum.xda-developers.com/showpost.php?p=75862940&postcount=7">post</a>:
+                                    All the <code>.exe</code> files are there. If you fail to run them, you'll have to compile them by your own using this <a href="https://forum.xda-developers.com/showpost.php?p=75862940&postcount=7">post</a>:
                                 </p>
                                 <blockquote>
                                     <p>Hi, the "helium_ab2tar" (<a href="https://github.com/floe/helium_ab2tar">https://github.com/floe/helium_ab2tar</a>) finally helped me. Good work!
@@ -527,11 +541,11 @@
                                 <li>Lets extract the <code>.tar</code> file, and take a look at its content (the <code>.tar</code> contains a single folder named <code>apps</code>):
                                     <a href="img/guide/advanced-ss-2.png" class="link-preview" data-lightbox="advanced" data-title="Advanced - tar content" title="Advanced - tar content"><img class="cmd" src="img/guide/advanced-ss-2.png" alt="Advanced - tar content"/></i></a>
                                     <ul>
-                                        <li><code>db/</code> folder contains databases</li>
-                                        <li><code>f/</code> folder contains app files</li>
-                                        <li><code>r/</code> folder contains some cached data</li>
-                                        <li><code>sp/</code> folder contains shared preferences files</li>
-                                        <li><code>a/</code> folder contains the application installation file (which is not present here, since I had omitted the <code>-apk</code> flag during <code>adb backup</code>)</li>
+                                        <li><code>db/</code> folder contains databases.</li>
+                                        <li><code>f/</code> folder contains app files.</li>
+                                        <li><code>r/</code> folder contains some cached data.</li>
+                                        <li><code>sp/</code> folder contains shared preferences files.</li>
+                                        <li><code>a/</code> folder contains the application installation file (which is not present here, since I had omitted the <code>-apk</code> flag during <code>adb backup</code>).</li>
                                         <li><code>_manifest</code> file contains the app's version code, the platform's version code, a flag indicating whether the archive contains the app APK and finally the app's signing certificate (called 'signature' in Android API's). It's not the regular <a href="https://developer.android.com/guide/topics/manifest/manifest-intro">AndroidManifest.xml</a> file.</li>
                                     </ul>
                                 </li>
@@ -659,7 +673,7 @@
                     <li><a href="https://eviabs.com" target="_blank" class="icon fa-globe"><span class="label">Site</span></a></li>
                     <li><a href="mailto:evyatarb@gmail.com" target="_blank" class="icon fa-envelope"><span class="label">Mail</span></a></li>
                 </ul>
-                <p class="copyright">Last updated: July 2018</p>
+                <p class="copyright">Last updated: August 2018</p>
                 <p class="copyright">Created by <a href="https://eviabs.com">eviabs</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
             </footer>
 
